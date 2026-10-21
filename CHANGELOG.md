@@ -15,6 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 | Indexer | `soroban_sas_indexer.wasm` | `TBD` |
 
 ### Added
+- `contracts/time-window-resolver`, a schema resolver that enforces a
+  configurable `cooldown_period_seconds` between attestations issued to the
+  same recipient. It records `last_attested_time` per recipient in persistent
+  storage, rejects issuance while `last + cooldown` is still in the future
+  with the new `SASError::CooldownActive` (code `420`), and lets the resolver
+  admin change the window with authorization (`COOLDOWN_UPDATED` event).
+  Different recipients have independent windows; exactly-at-boundary issuance
+  succeeds and refreshes the timestamp. See
+  [`docs/time-window-resolver.md`](docs/time-window-resolver.md). (#549)
 - Reverse cursor pagination for recipient, schema, and attester index lookups,
   with stable next cursors and bounded chunk reads. (#449)
 - Version 2 Axelar GMP proof payloads with EVM schema UID, EVM recipient,
