@@ -24,6 +24,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   Different recipients have independent windows; exactly-at-boundary issuance
   succeeds and refreshes the timestamp. See
   [`docs/time-window-resolver.md`](docs/time-window-resolver.md). (#549)
+- Newest-first convenience reads for every lookup dimension:
+  `get_atts_by_recipient_recent`, `get_atts_by_schema_recent`, and
+  `get_atts_by_attester_recent` return the newest `limit` UIDs (newest
+  first) without a cursor, deriving the start position from the tail
+  counter and reading backward across chunk boundaries. The
+  `get_recipient_recent_filtered` / `get_schema_recent_filtered` /
+  `get_attester_recent_filtered` variants add `include_revoked` so the
+  active-only view keeps descending order while skipping revoked/replaced
+  UIDs. (#450)
 - `Indexer::is_attestation_indexed(uid)`: a fast existence check that reads
   the UID's `(INDEXED_KEY, uid)` idempotency record directly instead of
   walking recipient, schema, or attester chunks. It renews the instance TTL
