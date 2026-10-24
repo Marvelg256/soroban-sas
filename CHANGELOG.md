@@ -19,7 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   configurable `cooldown_period_seconds` between attestations issued to the
   same recipient. It records `last_attested_time` per recipient in persistent
   storage, rejects issuance while `last + cooldown` is still in the future
-  with the new `SASError::CooldownActive` (code `420`), and lets the resolver
+  with the new `SASError::CooldownActive` (code `421`), and lets the resolver
   admin change the window with authorization (`COOLDOWN_UPDATED` event).
   Different recipients have independent windows; exactly-at-boundary issuance
   succeeds and refreshes the timestamp. See

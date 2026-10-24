@@ -99,7 +99,7 @@ attestation.
 ## Error Surfacing Through SAS
 
 Calling the resolver directly (or through a pre-flight check) reports
-`SASError::CooldownActive` (code `420`).
+`SASError::CooldownActive` (code `421`).
 
 Issuance through `SAS` reports `SASError::ResolverRejected`, because the
 protocol treats *every* resolver rejection — typed error, trap, or missing
